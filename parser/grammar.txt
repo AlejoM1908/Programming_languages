@@ -1,0 +1,236 @@
+Programa -> Declaraciones Bloque
+
+ProgramaSinRetorno -> Declaraciones BloqueSinRetorno
+
+
+// LL(1) Grammar for variables declarations
+
+Declaraciones -> DeclaracionesPrima
+
+DeclaracionesPrima -> DeclaracionesTipos DeclaracionesPrima
+DeclaracionesPrima -> DeclaracionesEstructuras DeclaracionesPrima
+DeclaracionesPrima -> Identificador DeclaracionesPrima
+DeclaracionesPrima -> epsilon
+
+DeclaracionesTipos -> TipoNoIterable ListaIdentificadores
+DeclaracionesTipos -> TipoIterable ListaIdentificadores
+
+DeclaracionesEstructuras -> Funcion
+DeclaracionesEstructuras -> Procedimiento
+DeclaracionesEstructuras -> Registro
+
+ListaIdentificadores -> Identificador ListaIdentificadoresPrima
+
+ListaIdentificadoresPrima -> tkn_comma Identificador ListaIdentificadoresPrima
+ListaIdentificadoresPrima -> epsilon
+
+Dimensiones -> tkn_integer DimensionesPrima
+
+DimensionesPrima -> tkn_comma tkn_integer DimensionesPrima
+DimensionesPrima -> epsilon
+
+
+
+// LL(1) grammar for sentences in the language
+Bloque -> inicio ListaSentencias fin
+
+BloqueSinRetorno -> inicio ListaSentenciasSinRetorno fin
+
+ListaSentencias -> Sentencia ListaSentencias
+ListaSentencias -> epsilon
+
+ListaSentenciasSinRetorno -> SentenciaSinRetorno ListaSentenciasSinRetorno
+ListaSentenciasSinRetorno -> epsilon
+
+Sentencia -> Asignacion
+Sentencia -> Ejecucion
+Sentencia -> Lectura
+Sentencia -> Escritura
+Sentencia -> Retornar
+Sentencia -> Ciclo
+Sentencia -> Condicional
+Sentencia -> Casos
+
+SentenciaSinRetorno -> Asignacion
+SentenciaSinRetorno -> Ejecucion
+SentenciaSinRetorno -> Lectura
+SentenciaSinRetorno -> Escritura
+SentenciaSinRetorno -> Ciclo
+SentenciaSinRetorno -> Condicional
+SentenciaSinRetorno -> Casos
+
+Asignacion -> Identificador AsignacionPrima
+
+AsignacionPrima -> tkn_assign Expresion
+AsignacionPrima -> tkn_period Identificador tkn_assign Expresion
+AsignacionPrima -> tkn_opening_bra Expresion tkn_closing_bra tkn_assign Expresion
+
+Ejecucion -> llamar EjecucionPrima
+
+EjecucionPrima -> Identificador ParametrosEjecucion
+EjecucionPrima -> nueva_linea
+
+Lectura -> lea Identificador LecturaPrima
+
+LecturaPrima -> tkn_period Identificador LecturaPrima
+LecturaPrima -> tkn_comma Identificador LecturaPrima
+LecturaPrima -> tkn_opening_bra Expresion tkn_closing_bra tkn_period Identificador
+LecturaPrima -> epsilon
+
+Escritura -> escriba TipoEscritura EscrituraPrima
+
+EscrituraPrima -> tkn_comma TipoEscritura EscrituraPrima
+EscrituraPrima -> epsilon
+
+TipoEscritura -> Expresion ParametrosEjecucion
+
+Funcion -> funcion Identificador Parametros tkn_colon TipoCompleto Programa
+
+Parametros -> tkn_opening_par TipoCompleto Identificador ParametrosPrima tkn_closing_par
+Parametros -> epsilon
+
+ParametrosPrima -> tkn_comma TipoCompleto Identificador ParametrosPrima
+ParametrosPrima -> epsilon
+
+ParametrosEjecucion -> tkn_opening_par ParametrosEjecucionPrima tkn_closing_par
+ParametrosEjecucion -> epsilon
+
+ParametrosEjecucionPrima -> TipoDato ParametrosEjecucionDoblePrima
+ParametrosEjecucionPrima -> epsilon
+
+ParametrosEjecucionDoblePrima -> tkn_comma TipoDato ParametrosEjecucionDoblePrima
+ParametrosEjecucionDoblePrima -> epsilon
+
+Procedimiento -> procedimiento Identificador Parametros ProgramaSinRetorno
+
+Registro -> registro Identificador DeclaracionesTipos fin registro
+
+Retornar -> retorne Expresion
+
+Ciclo -> mientras Expresion haga ListaSentencias fin mientras
+Ciclo -> repita ListaSentencias hasta Expresion
+Ciclo -> para Asignacion hasta Expresion haga ListaSentencias fin para
+
+Condicional -> si Expresion entonces ListaSentencias CondicionalPrima
+
+CondicionalPrima -> sino ListaSentencias fin si
+CondicionalPrima -> fin si
+
+
+
+Casos -> caso
+//Casos -> caso Identificador BloqueCaso CasosPrima fin caso
+//
+//CasosPrima -> BloqueCaso CasosPrima
+//CasosPrima -> epsilon
+//
+//BloqueCaso -> Expresion BloqueCasoPrima tkn_colon ListaSentencias
+//BLoqueCaso -> sino tkn_colon ListaSentencias
+//
+//BloqueCasoPrima -> tkn_comma Expresion BloqueCasoPrima
+//BloqueCasoPrima -> epsilon
+
+
+
+
+// LL(1) Grammar for arithmetic and logical expressions
+
+Expresion -> ExpresionY ExpresionPrima
+
+ExpresionPrima -> o ExpresionY ExpresionPrima
+ExpresionPrima -> epsilon
+
+ExpresionY -> ExpresionNo ExpresionYPrima
+
+ExpresionYPrima -> y ExpresionNo ExpresionYPrima
+ExpresionYPrima -> epsilon
+
+ExpresionNo -> no ExpresionNo
+ExpresionNo -> Comparacion
+
+Comparacion -> SumRest ComparacionPrima
+
+ComparacionPrima -> Comparador SumRest
+ComparacionPrima -> epsilon
+
+SumRest -> MultDiv SumRestPrima
+SumRest -> DatoCaracter SumRestPrima2
+
+SumRestPrima -> tkn_plus MultDiv SumRestPrima
+SumRestPrima -> tkn_minus MultDiv SumRestPrima
+SumRestPrima -> epsilon
+
+SumRestPrima2 -> tkn_plus SumRestDoblePrima2
+SumRestPrima2 -> epsilon
+
+SumRestDoblePrima2 -> DatoCaracter SumRestPrima2
+SumRestDoblePrima2 -> Identificador SumRestPrima2
+
+MultDiv -> CambiarSigno MultDivPrima
+
+MultDivPrima -> tkn_times CambiarSigno MultDivPrima
+MultDivPrima -> tkn_div CambiarSigno MultDivPrima
+MultDivPrima -> mod CambiarSigno MultDivPrima
+MultDivPrima -> div CambiarSigno MultDivPrima
+MultDivPrima -> epsilon
+
+CambiarSigno -> tkn_minus CambiarSigno
+CambiarSigno -> Exponenciacion
+
+Exponenciacion -> Parentesis ExponenciacionPrima
+
+ExponenciacionPrima -> tkn_power Parentesis ExponenciacionPrima
+ExponenciacionPrima -> epsilon
+
+Parentesis -> tkn_opening_par Expresion tkn_closing_par
+Parentesis -> DatosAritmeticos
+
+// Data types for the whole grammar
+
+Comparador -> tkn_neq
+Comparador -> tkn_equal
+Comparador -> tkn_less
+Comparador -> tkn_leq
+Comparador -> tkn_greater
+Comparador -> tkn_geq
+
+TipoCompleto -> TipoNoIterable
+TipoCompleto -> Identificador
+TipoCompleto -> Strings
+
+TipoNoIterable -> real
+TipoNoIterable -> entero
+TipoNoIterable -> booleano
+TipoNoIterable -> caracter
+
+TipoIterable -> MultiDimensional
+TipoIterable -> Strings
+
+MultiDimensional -> arreglo tkn_opening_bra Dimensiones tkn_closing_bra de TipoNoIterable
+Strings -> cadena tkn_opening_bra tkn_integer tkn_closing_bra
+
+TipoDato -> DatosAritmeticos
+TipoDato -> DatoCaracter
+
+DatosAritmeticos -> DatoOperable
+DatosAritmeticos -> Identificador DatosAritmeticosPrima
+
+DatosAritmeticosPrima -> tkn_opening_bra tkn_integer DatosAritmeticosDoblePrima tkn_closing_bra
+DatosAritmeticosPrima -> epsilon
+
+DatosAritmeticosDoblePrima -> tkn_comma tkn_integer DatosAritmeticosDoblePrima
+DatosAritmeticosDoblePrima -> epsilon
+
+DatoOperable -> DatoNumerico
+DatoOperable -> DatoBooleano
+
+DatoNumerico -> tkn_integer
+DatoNumerico -> tkn_real
+
+DatoBooleano -> verdadero
+DatoBooleano -> falso
+
+DatoCaracter -> tkn_char
+DatoCaracter -> tkn_str
+
+Identificador -> id

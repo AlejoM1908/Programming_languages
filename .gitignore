@@ -1,1 +1,7 @@
 .antlr/
+
+# VSCode
+.vscode/
+
+# IntelliJ
+.idea/
