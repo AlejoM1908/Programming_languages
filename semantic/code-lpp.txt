@@ -1,0 +1,58 @@
+registro Empleado
+    cadena[30] nombre
+    real ventas,comis,ihss,tp
+fin registro
+
+arreglo[5] de empleado emple
+
+funcion seguro(real sueldo) : real
+inicio
+    si sueldo >2400 entonces
+        retorne 84
+        sino
+        retorne 0.035*sueldo
+    fin si
+fin
+
+procedimiento Ingreso(var arreglo[5] de empleado emple)
+    entero i
+inicio
+    para i <- 1 hasta 2 haga
+        Escriba "ingresar Nombre del Empleado "
+        lea emple[i].nombre
+        Escriba "Ingresar las ventas "
+        lea emple[i].ventas
+    Fin Para
+fin
+
+procedimiento Calculo(var arreglo[5] de empleado emple)
+    entero I
+inicio
+    para i <- 1 hasta 2 haga
+        emple[i].comis<-emple[i].ventas*0.05
+        emple[i].ihss<-seguro(emple[i].comis)
+        emple[i].tp<-emple[i].comis-emple[i].ihss
+    Fin Para
+fin
+
+Procedimiento Presentar(arreglo[5] de empleado emple)
+    entero i
+inicio
+    para i <- 1 hasta 2 haga
+        Escriba "Empleado ",emple[i].nombre
+        Llamar Nueva_linea
+        Escriba "Comisión ..:", emple[i].comis
+        Llamar Nueva_linea
+        Escriba "Seguro Social..:", emple[i].ihss
+        Llamar Nueva_linea
+        Escriba "Total a Pagar ..:", emple[i].tp
+        Llamar Nueva_linea
+        Llamar Nueva_linea
+    Fin Para
+Fin
+    
+inicio
+    llamar ingreso(emple)
+    llamar calculo(emple)
+    llamar presentar(emple)
+fin

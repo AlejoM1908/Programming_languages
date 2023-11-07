@@ -1,0 +1,26 @@
+entero i
+inicio
+	escriba "Los numeros pares de 0 a 10"
+	llamar nueva_linea
+	para i <- 0 hasta 11 haga
+	 	si i mod 2=0 entonces
+	 	 escriba i
+	 	 si i<>10 entonces
+	 	  llamar nueva_linea
+	 	 fin si
+	 	fin si
+	fin para 
+fin
+
+/*
+def main():
+    print("Los numeros pares de 0 a 10")
+    for i in range(0,11):
+        if i%2==0:
+            print(i)
+        if i!=10:
+            print("\n")
+        
+if __name__ == "__main__":
+    main()
+*/
