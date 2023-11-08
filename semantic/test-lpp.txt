@@ -1,0 +1,30 @@
+registro Empleado
+entero codigo
+cadena[30] nombre
+fin registro
+arreglo[5] de empleado emple
+procedimiento Ingreso( var arreglo[5] de empleado emple)
+entero i
+inicio
+para i <- 1 hasta 5 haga
+Escriba "ingresar Nombre del Empleado "
+lea emple[i].nombre
+Escriba "Ingresar el codigo de registro "
+lea emple[i].codigo
+Fin Para
+fin
+Procedimiento Presentar(var arreglo[5] de empleado emple)
+entero i
+inicio
+para i <- 1 hasta 5 haga
+Escriba "Nombre del Empleado ",emple[i].nombre
+Llamar Nueva_linea
+Escriba "Código de registro ", emple[i].codigo
+Llamar Nueva_linea
+Llamar Nueva_linea
+Fin Para
+fin
+inicio
+llamar ingreso(emple)
+llamar presentar(emple)
+fin

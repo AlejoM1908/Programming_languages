@@ -1,6 +1,41 @@
 registro Empleado
     cadena[30] nombre
     real ventas,comis,ihss,tp
+
+fin registro
+
+arreglo[5] de empleado emple
+
+/*
+class Empleado:
+    def __init__(self, nombre, ventas, comis, ihss, tp):
+        self.nombre = nombre
+        self.ventas = ventas
+        self.comis = comis
+        self.ihss = ihss
+        self.tp = tp
+*/
+
+procedimiento seguro
+cadena[10] s
+inicio
+    si sueldo >2400 entonces
+        s <- "hola"
+        sino
+        s <- "adios"
+    fin si
+
+    retorne s
+fin
+
+inicio
+    resultado <- seguro(1000,2)
+fin
+
+
+/*registro Empleado
+    cadena[30] nombre
+    real ventas,comis,ihss,tp
 fin registro
 
 arreglo[5] de empleado emple
@@ -55,4 +90,22 @@ inicio
     llamar ingreso(emple)
     llamar calculo(emple)
     llamar presentar(emple)
+fin*/
+
+
+
+/*
+// ejemplo de programa con ciclo repita
+entero acumulador
+entero i
+inicio
+    i<-0
+    acumulador<-0
+    repita
+        escriba ("Valor del acumulador en la iteracion: "),(acumulador)
+        llamar nueva_linea
+        i<-i+1
+        acumulador<-acumulador+(i*2)
+    hasta (i=20) o (acumulador mod 5=4)
 fin
+*/

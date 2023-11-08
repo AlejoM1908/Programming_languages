@@ -2,9 +2,7 @@ grammar LPP;
 
 program : NL* variables_declaration program_body ;
 
-registry_declaration : REGISTRO ID NL+ variables_declaration FIN REGISTRO NL+ ;
-
-type_declaration : TIPO ID NL+ type NL+ ;
+registry_declaration : REGISTRO ID NL+ registry_varibles_declaration FIN REGISTRO NL+ ;
 
 procedure_declaration : PROCEDIMIENTO ID ('(' parameters ')')? NL+ variables_declaration subprogram_body ;
 
@@ -14,12 +12,15 @@ parameters : parameter (',' parameter)* ;
 
 parameter : VAR? type ID ;
 
+registry_varibles_declaration : registry_varible_declaration+ ;
+
+registry_varible_declaration : type ids_list NL+ ;
+
 variables_declaration : variable_declaration*
 | ;
 
 variable_declaration : type ids_list NL+ 
 | (registry_declaration 
-| type_declaration
 | procedure_declaration
 | function_declaration) ;
 
@@ -94,19 +95,19 @@ only_id_expression : ID
 | only_id_expression '[' expressions_list ']'
 | ID '(' expressions_list? ')' ;
 
-expression : '(' expression ')' #parenExpression
-| literal #literalExpression
-| ID #idExpression
-| expression '.' ID #dotIdExpression
-| expression '[' expressions_list ']' #arrayAccessExpression
-| ID '(' expressions_list? ')' #functionCallExpression
-| '-' expression  #negativeExpression
-| NO expression #invertLogicalValue
-| <assoc=right> expression POWER expression #powerStatement
-| expression (MULT | DIV | MOD | INT_DIV) expression #multiplicationDivisionStatement
-| expression (PLUS | MINUS) expression #additionSubtractionExpression
-| expression (GREATER_THAN | GREATER_EQUAL | LESS_THAN | LESS_EQUAL | EQUAL | NOT_EQUAL) expression #comparisonExpression
-| expression (AND | OR) expression  #logicalExpression ;
+expression : '(' expression ')' 
+| literal 
+| ID 
+| expression '.' ID 
+| expression '[' expressions_list ']'
+| ID '(' expressions_list? ')' 
+| '-' expression  
+| NO expression 
+| <assoc=right> expression POWER expression
+| expression (MULT | DIV | MOD | INT_DIV) expression 
+| expression (PLUS | MINUS) expression 
+| expression (GREATER_THAN | GREATER_EQUAL | LESS_THAN | LESS_EQUAL | EQUAL | NOT_EQUAL) expression 
+| expression (AND | OR) expression ;
 
 // Data types
 PROCEDIMIENTO : P R O C E D I M I E N T O ;

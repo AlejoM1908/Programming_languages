@@ -26,15 +26,6 @@ class LPPListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by LPPParser#type_declaration.
-    def enterType_declaration(self, ctx:LPPParser.Type_declarationContext):
-        pass
-
-    # Exit a parse tree produced by LPPParser#type_declaration.
-    def exitType_declaration(self, ctx:LPPParser.Type_declarationContext):
-        pass
-
-
     # Enter a parse tree produced by LPPParser#procedure_declaration.
     def enterProcedure_declaration(self, ctx:LPPParser.Procedure_declarationContext):
         pass
@@ -68,6 +59,24 @@ class LPPListener(ParseTreeListener):
 
     # Exit a parse tree produced by LPPParser#parameter.
     def exitParameter(self, ctx:LPPParser.ParameterContext):
+        pass
+
+
+    # Enter a parse tree produced by LPPParser#registry_varibles_declaration.
+    def enterRegistry_varibles_declaration(self, ctx:LPPParser.Registry_varibles_declarationContext):
+        pass
+
+    # Exit a parse tree produced by LPPParser#registry_varibles_declaration.
+    def exitRegistry_varibles_declaration(self, ctx:LPPParser.Registry_varibles_declarationContext):
+        pass
+
+
+    # Enter a parse tree produced by LPPParser#registry_varible_declaration.
+    def enterRegistry_varible_declaration(self, ctx:LPPParser.Registry_varible_declarationContext):
+        pass
+
+    # Exit a parse tree produced by LPPParser#registry_varible_declaration.
+    def exitRegistry_varible_declaration(self, ctx:LPPParser.Registry_varible_declarationContext):
         pass
 
 
@@ -305,120 +314,12 @@ class LPPListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by LPPParser#negativeExpression.
-    def enterNegativeExpression(self, ctx:LPPParser.NegativeExpressionContext):
+    # Enter a parse tree produced by LPPParser#expression.
+    def enterExpression(self, ctx:LPPParser.ExpressionContext):
         pass
 
-    # Exit a parse tree produced by LPPParser#negativeExpression.
-    def exitNegativeExpression(self, ctx:LPPParser.NegativeExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by LPPParser#additionSubtractionExpression.
-    def enterAdditionSubtractionExpression(self, ctx:LPPParser.AdditionSubtractionExpressionContext):
-        pass
-
-    # Exit a parse tree produced by LPPParser#additionSubtractionExpression.
-    def exitAdditionSubtractionExpression(self, ctx:LPPParser.AdditionSubtractionExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by LPPParser#comparisonExpression.
-    def enterComparisonExpression(self, ctx:LPPParser.ComparisonExpressionContext):
-        pass
-
-    # Exit a parse tree produced by LPPParser#comparisonExpression.
-    def exitComparisonExpression(self, ctx:LPPParser.ComparisonExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by LPPParser#parenExpression.
-    def enterParenExpression(self, ctx:LPPParser.ParenExpressionContext):
-        pass
-
-    # Exit a parse tree produced by LPPParser#parenExpression.
-    def exitParenExpression(self, ctx:LPPParser.ParenExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by LPPParser#logicalExpression.
-    def enterLogicalExpression(self, ctx:LPPParser.LogicalExpressionContext):
-        pass
-
-    # Exit a parse tree produced by LPPParser#logicalExpression.
-    def exitLogicalExpression(self, ctx:LPPParser.LogicalExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by LPPParser#powerStatement.
-    def enterPowerStatement(self, ctx:LPPParser.PowerStatementContext):
-        pass
-
-    # Exit a parse tree produced by LPPParser#powerStatement.
-    def exitPowerStatement(self, ctx:LPPParser.PowerStatementContext):
-        pass
-
-
-    # Enter a parse tree produced by LPPParser#multiplicationDivisionStatement.
-    def enterMultiplicationDivisionStatement(self, ctx:LPPParser.MultiplicationDivisionStatementContext):
-        pass
-
-    # Exit a parse tree produced by LPPParser#multiplicationDivisionStatement.
-    def exitMultiplicationDivisionStatement(self, ctx:LPPParser.MultiplicationDivisionStatementContext):
-        pass
-
-
-    # Enter a parse tree produced by LPPParser#arrayAccessExpression.
-    def enterArrayAccessExpression(self, ctx:LPPParser.ArrayAccessExpressionContext):
-        pass
-
-    # Exit a parse tree produced by LPPParser#arrayAccessExpression.
-    def exitArrayAccessExpression(self, ctx:LPPParser.ArrayAccessExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by LPPParser#idExpression.
-    def enterIdExpression(self, ctx:LPPParser.IdExpressionContext):
-        pass
-
-    # Exit a parse tree produced by LPPParser#idExpression.
-    def exitIdExpression(self, ctx:LPPParser.IdExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by LPPParser#invertLogicalValue.
-    def enterInvertLogicalValue(self, ctx:LPPParser.InvertLogicalValueContext):
-        pass
-
-    # Exit a parse tree produced by LPPParser#invertLogicalValue.
-    def exitInvertLogicalValue(self, ctx:LPPParser.InvertLogicalValueContext):
-        pass
-
-
-    # Enter a parse tree produced by LPPParser#dotIdExpression.
-    def enterDotIdExpression(self, ctx:LPPParser.DotIdExpressionContext):
-        pass
-
-    # Exit a parse tree produced by LPPParser#dotIdExpression.
-    def exitDotIdExpression(self, ctx:LPPParser.DotIdExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by LPPParser#functionCallExpression.
-    def enterFunctionCallExpression(self, ctx:LPPParser.FunctionCallExpressionContext):
-        pass
-
-    # Exit a parse tree produced by LPPParser#functionCallExpression.
-    def exitFunctionCallExpression(self, ctx:LPPParser.FunctionCallExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by LPPParser#literalExpression.
-    def enterLiteralExpression(self, ctx:LPPParser.LiteralExpressionContext):
-        pass
-
-    # Exit a parse tree produced by LPPParser#literalExpression.
-    def exitLiteralExpression(self, ctx:LPPParser.LiteralExpressionContext):
+    # Exit a parse tree produced by LPPParser#expression.
+    def exitExpression(self, ctx:LPPParser.ExpressionContext):
         pass
 
 

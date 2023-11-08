@@ -1,0 +1,61 @@
+enteRo _ , __ , ___
+real my_real, _real2, __result_REAL__
+
+
+fuNCIOn add(ENTERO n1, entero n2): enTERO
+
+enterO result
+
+INICIO
+  result <- n1+n2
+  rETORNE result
+Fin
+
+
+fuNCIOn mult(Real r1, REAL r2): REAL
+
+REAL the__real_one
+
+INICIO
+  The__real_one <- R1+r2
+  rETORNE the__Real_one
+Fin
+
+
+ProcedimientO greeting
+cadena [20] sayHello
+inicio
+
+    sayHello <- "Hi folks :) "
+
+    escriba sayHello
+
+fin
+
+funcion introduceMyself: cadena[10]
+inicio
+   retorne "I'm a student"
+fin
+
+
+inicio
+   
+   _ <- 20
+   _reAl2 <- -9.5
+   __ <- 7
+   
+   my_Real<- 2.7
+   
+   ___ <- add(_, __)
+   
+   __Result_Real__ <- mult(MY_real, _reAl2)
+   
+   escriba ("The result of adding "),_," and ",__, " is: ",___
+   LLamar NUEVA_linea
+   Escriba ("The result of multiplyin"+"g "),MY_real," a",'n',"d ", _rEal2," is: ",__RESULT_real__
+   llamar nueva_linEa
+   Llamar Nueva_linea
+   llamAr greeting()
+   ESCRIBA introduceMySelf()," that loves how to learn :3"
+  
+fin

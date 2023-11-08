@@ -1,3 +1,13 @@
+
+"""
+    Traductor de un lenguaje LPP a Python
+
+    Autores:
+        - Daniel Alejandro Melo Nuván
+        - Camilo Arturo Echeverry Ayala
+"""
+
+
 import argparse
 import os
 import sys
@@ -38,8 +48,8 @@ def main() -> None:
 
     final_code = listener.getPythonCode()
 
-    print(final_code)
-    
+    with open("output.py", "w") as file:
+        file.write(final_code)
 
 if __name__ == "__main__":
     main()
