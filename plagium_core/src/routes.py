@@ -15,7 +15,7 @@ def process():
     # Get unique pairs of files and parallelize the comparison to compare the trees of each pair
     # The result is a list of tuples with the similarity of each pair
     pairs = [(files[i], files[j]) for i in range(len(files)) for j in range(i + 1, len(files))]
-    similarities = aio.run(aio.gather(*[aio.to_thread(compareTrees, pair[0][1], pair[1][1]) for pair in pairs]))
+    similarities = [compareTrees(p[0][1], p[1][1]) for p in pairs]
 
     # Return a report with the similarities
     return jsonify({

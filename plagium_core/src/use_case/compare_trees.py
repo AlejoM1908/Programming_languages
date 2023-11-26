@@ -1,4 +1,8 @@
 from antlr4 import *
+from antlr4.Token import CommonToken
+from antlr4.tree.Tree import TerminalNodeImpl
+from typing import List
+
 def compareTrees(tree1: ParserRuleContext, tree2: ParserRuleContext) -> float:
     """
     Compare two trees and return if they have any subtree in common
@@ -10,44 +14,91 @@ def compareTrees(tree1: ParserRuleContext, tree2: ParserRuleContext) -> float:
     Returns
         float: Percentage of similarity
     """
-    # Check if the tree is a terminal node
-    if tree1.getChildCount() == 0:
-        # If it is, return 0 if the other tree is not a terminal node
-        if tree2.getChildCount() != 0:
-            return 0
+    matching_nodes = countMatchingNodes(tree1, tree2)
+    total_nodes = max(len(flattenTree(tree1)), len(flattenTree(tree2)))
 
-        # If it is, return 1 if the other tree is also a terminal node
-        return 1
-    
-    # Check if the tree is a terminal node
-    if tree2.getChildCount() == 0:
-        # If it is, return 0 if the other tree is not a terminal node
-        if tree1.getChildCount() != 0:
-            return 0
-
-        # If it is, return 1 if the other tree is also a terminal node
-        return 1
-
-    # Get the children of the trees
-    children1 = tree1.children
-    children2 = tree2.children
-
-    # Get the number of children
-    n1 = len(children1)
-    n2 = len(children2)
-
-    # If the number of children is different, return 0
-    if n1 != n2:
+    if total_nodes == 0:
         return 0
+    
+    return matching_nodes / total_nodes
 
-    # If the number of children is 0, return 1
-    if n1 == 0:
-        return 1
 
-    # Compare the children
-    similarity = 0
-    for i in range(n1):
-        similarity += compareTrees(children1[i], children2[i])
+def checkTerminalNode(node1: ParserRuleContext, node2: ParserRuleContext) -> int: 
+    """
+    Checks if two nodes are terminal nodes of a subtree and if they are of
+    the same type
 
-    # Return the similarity
-    return similarity / n1
+    Parameters
+        tree1 (ParserRuleContext): First tree
+        tree2 (ParserRuleContext): Second tree
+
+    Returns
+        int: 1 if they are terminal nodes of the same type, 0 otherwise
+    """
+
+
+    
+    # Get type of both terminal nodes
+    typeTerminalNodeTree1 = getNodeType(node1)
+    typeTerminalNodeTree2 = getNodeType(node2)
+
+    # If it is, and are the same type return 1
+    return 0 if typeTerminalNodeTree1 != typeTerminalNodeTree2 else 1
+
+def getNodeType(node: ParserRuleContext) -> int:
+    """
+    Get the type of a node
+
+    Parameters
+        node (ParserRuleContext): Node
+
+    Returns
+        int: Type of the node
+    """
+    if isinstance (node, CommonToken):
+        return node.type
+    elif isinstance (node, TerminalNodeImpl):
+        return node.symbol.type
+    else:
+        return node.start.type
+
+
+def countMatchingNodes(tree1: ParserRuleContext, tree2: ParserRuleContext) -> int:
+    """
+    Count the number of matching nodes in two trees
+
+    Parameters
+        tree1 (ParserRuleContext): First tree
+        tree2 (ParserRuleContext): Second tree
+
+    Returns
+        int: Number of matching 
+    """
+
+    matching_nodes = 0
+
+    # Flatten the trees to lists
+    # Compare each pair of child nodes in both trees
+    for i in range(tree1.getChildCount()):
+        for j in range(tree2.getChildCount()):
+            matching_nodes += countMatchingNodes(tree1.getChild(i), tree2.getChild(j))
+
+    return matching_nodes
+
+
+def flattenTree(tree: ParserRuleContext) -> List[ParserRuleContext]:
+    """
+    Flatten a tree to a list of nodes
+
+    Parameters
+        tree (ParserRuleContext): Tree
+
+    Returns
+        List[ParserRuleContext]: List of nodes
+    """
+    nodes = [tree]
+
+    for i in range(tree.getChildCount()):
+        nodes.extend(flattenTree(tree.getChild(i)))
+
+    return nodes
