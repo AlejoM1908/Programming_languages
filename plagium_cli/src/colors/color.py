@@ -1,0 +1,11 @@
+# Set some default colors for the project
+BLACK = '\033[30m'
+RED = '\033[91m'
+GREEN = '\033[92m'
+YELLOW = '\033[93m'
+BLUE = '\033[34m'
+MAGENTA = '\033[95m'
+CYAN = '\033[96m'
+WHITE = '\033[97m'
+GREY = '\033[90m'
+PURPLE = '\033[95m'

@@ -1,0 +1,32 @@
+[
+    {
+        "name": "help",
+        "general": "Command that shows all the available commands in the CLI",
+        "specific": "help [command]\n\nThis command shows all the available commands in the CLI. If a command is specified, it will show specific information about that command."
+    },
+    {
+        "name": "exit",
+        "general": "Close the CLI",
+        "specific": "exit\n\nThis command closes the CLI."
+    },
+    {
+        "name": "clear",
+        "general": "Clear the CLI",
+        "specific": "clear\n\nThis command clears the CLI."
+    },
+    {
+        "name": "version",
+        "general": "Show the CLI version",
+        "specific": "version\n\nThis command shows the CLI version."
+    },
+    {
+        "name": "config",
+        "general": "Configure the CLI",
+        "specific": "config [options]\n\nThis command configures the CLI. If no options are specified, it will show the current configuration. If options are specified, it will change the configuration."
+    },
+    {
+        "name": "process",
+        "general": "Get a set of files from the user filesystem and send them to the core",
+        "specific": "process [options]\n\nThis command gets a set of files selected by the user and sends them to the core to be processed for plagiarism."
+    }
+]
