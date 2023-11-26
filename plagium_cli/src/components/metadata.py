@@ -21,3 +21,5 @@ class Metadata:
                 json.dump(self.data, file)
         except FileNotFoundError:
             pass
+        except KeyError:
+            pass
