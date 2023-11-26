@@ -2,13 +2,6 @@ from antlr4 import *
 from ..parser.Python3Lexer import Python3Lexer
 from ..parser.Python3Parser import Python3Parser
 
-import os
-import sys
-
-
-
-print
-
 def parseCode(code: str) -> dict:
     """
     Parse a code string and return a dictionary with the information

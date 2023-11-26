@@ -1,9 +1,45 @@
 from antlr4 import *
-from antlr4.Token import CommonToken
-from antlr4.tree.Tree import TerminalNodeImpl
-from typing import List
 
-def compareTrees(tree1: ParserRuleContext, tree2: ParserRuleContext) -> float:
+def getSubtrees(tree: ParserRuleContext) -> list[ParserRuleContext]:
+    """
+    Get all subtrees of a tree
+
+    Parameters:
+        tree (ParserRuleContext): Tree to get the subtrees from
+
+    Returns:
+        List[ParserRuleContext]: List of subtrees
+    """
+    subtrees = [tree]
+
+    for i in range(tree.getChildCount()):
+        subtrees.extend(getSubtrees(tree.getChild(i)))
+
+    return subtrees
+
+def hashSubtree(subtree: ParserRuleContext) -> int:
+    """
+    Generate a hash for a subtree.
+
+    Parameters:
+        subtree (ParserRuleContext): Subtree to hash
+
+    Returns:
+        int: Hash value
+    """
+    # Implementación simple: usa una combinación de tipos de nodos y su estructura.
+    # Nota: Esta es una implementación básica y puede necesitar ser más sofisticada.
+    hash_value = 7
+    node_type = type(subtree).__name__
+    hash_value = 31 * hash_value + hash(node_type)
+
+    for i in range(subtree.getChildCount()):
+        child = subtree.getChild(i)
+        hash_value = 31 * hash_value + hashSubtree(child)
+
+    return hash_value
+
+def compareTreesUseCase(tree1: ParserRuleContext, tree2: ParserRuleContext) -> float:
     """
     Compare two trees and return if they have any subtree in common
 
@@ -14,91 +50,18 @@ def compareTrees(tree1: ParserRuleContext, tree2: ParserRuleContext) -> float:
     Returns
         float: Percentage of similarity
     """
-    matching_nodes = countMatchingNodes(tree1, tree2)
-    total_nodes = max(len(flattenTree(tree1)), len(flattenTree(tree2)))
+    first_subtrees = getSubtrees(tree1)
+    second_subtrees = getSubtrees(tree2)
 
-    if total_nodes == 0:
-        return 0
-    
-    return matching_nodes / total_nodes
+    first_hashes = {hashSubtree(subtree) for subtree in first_subtrees}
+    second_hashes = {hashSubtree(subtree) for subtree in second_subtrees}
 
+    # Calcula las coincidencias y el total de subárboles únicos
+    matches = first_hashes.intersection(second_hashes)
+    total_unique_subtrees = len(first_hashes) + len(second_hashes) - len(matches)
 
-def checkTerminalNode(node1: ParserRuleContext, node2: ParserRuleContext) -> int: 
-    """
-    Checks if two nodes are terminal nodes of a subtree and if they are of
-    the same type
+    if total_unique_subtrees == 0:
+        return 0  # Evita la división por cero
 
-    Parameters
-        tree1 (ParserRuleContext): First tree
-        tree2 (ParserRuleContext): Second tree
-
-    Returns
-        int: 1 if they are terminal nodes of the same type, 0 otherwise
-    """
-
-
-    
-    # Get type of both terminal nodes
-    typeTerminalNodeTree1 = getNodeType(node1)
-    typeTerminalNodeTree2 = getNodeType(node2)
-
-    # If it is, and are the same type return 1
-    return 0 if typeTerminalNodeTree1 != typeTerminalNodeTree2 else 1
-
-def getNodeType(node: ParserRuleContext) -> int:
-    """
-    Get the type of a node
-
-    Parameters
-        node (ParserRuleContext): Node
-
-    Returns
-        int: Type of the node
-    """
-    if isinstance (node, CommonToken):
-        return node.type
-    elif isinstance (node, TerminalNodeImpl):
-        return node.symbol.type
-    else:
-        return node.start.type
-
-
-def countMatchingNodes(tree1: ParserRuleContext, tree2: ParserRuleContext) -> int:
-    """
-    Count the number of matching nodes in two trees
-
-    Parameters
-        tree1 (ParserRuleContext): First tree
-        tree2 (ParserRuleContext): Second tree
-
-    Returns
-        int: Number of matching 
-    """
-
-    matching_nodes = 0
-
-    # Flatten the trees to lists
-    # Compare each pair of child nodes in both trees
-    for i in range(tree1.getChildCount()):
-        for j in range(tree2.getChildCount()):
-            matching_nodes += countMatchingNodes(tree1.getChild(i), tree2.getChild(j))
-
-    return matching_nodes
-
-
-def flattenTree(tree: ParserRuleContext) -> List[ParserRuleContext]:
-    """
-    Flatten a tree to a list of nodes
-
-    Parameters
-        tree (ParserRuleContext): Tree
-
-    Returns
-        List[ParserRuleContext]: List of nodes
-    """
-    nodes = [tree]
-
-    for i in range(tree.getChildCount()):
-        nodes.extend(flattenTree(tree.getChild(i)))
-
-    return nodes
+    similarity_percentage = (len(matches) / total_unique_subtrees) * 100
+    return similarity_percentage
