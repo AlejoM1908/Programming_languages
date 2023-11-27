@@ -35,3 +35,23 @@ The input for ANTLR4 is the grammar [LPP.g4](./semantic/LPP.g4) that comes from 
 - Added the logic to manage cases, missing in the previous work.
 
 get more information about the translator [here](./semantic/README.md).
+
+## Plagiarism Detection Project
+
+Applying all the knowledge acquired in the course, a plagiarism detection project was developed. It is located in the directories starting with `plagium_`. The project is divided in three parts:
+
+- [plagium_core](./plagium_core/README.md): The core of the project, it contains the logic to detect plagiarism using concurrency.
+- [plagium_web](./plagium_web/README.md): A web interface to interact with the core.
+- [plagium_cli](./plagium_cli/README.md): A command line interface to interact with the core.
+
+### Architecture
+
+The main project architecture is based on the clean architecture, allowing the core to be completely modular and independent from the web and cli interfaces. It used a REST API to communicate with the UIs, receiving the files to analyze and returning the results.
+
+### Deployment
+
+The project can be deployed independently, and for that purpose we recommend clicking the link above in the README of each part of the project. However, if you want to deploy the whole project at once, you can use the [docker-compose.yml](./docker-compose.yml) file to deploy the whole project at once, for this execute the following command having docker and docker-compose properly installed:
+
+```bash
+docker-compose up -d
+```
