@@ -148,12 +148,12 @@ async function getPlagiarimResult(event){
                     <div class="progress">
                         <div class="progress-bar" 
                             role="progressbar" 
-                            style="width: ${report.similarity * 100}%" 
-                            aria-valuenow="${report.similarity * 100}" 
+                            style="width: ${report.similarity}%" 
+                            aria-valuenow="${report.similarity}" 
                             aria-valuemin="0" 
                             aria-valuemax="100"
                         >
-                            ${(report.similarity * 100).toFixed(2)}%
+                            ${(report.similarity).toFixed(2)}%
                         </div>
                     </div>
                 </div>
