@@ -72,7 +72,9 @@ async function getPlagiarimResult(event){
 
     event.preventDefault();
 
-    const url = "http://localhost:5000/v1.1/process";
+    const base_url = "http://localhost:4800";
+    const url = `${base_url}/v1.1/process`;
+    
     const form = document.querySelector("#plagiarism-form");
     const formData = new FormData(form);
 

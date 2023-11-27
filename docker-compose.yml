@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  web:
+    build: ./plagium_web
+    restart: unless-stopped
+    ports:
+      - "4321:80"
+    depends_on:
+      - core
+  core:
+    build: ./plagium_core
+    restart: unless-stopped
+    ports:
+      - "4800:4800"
