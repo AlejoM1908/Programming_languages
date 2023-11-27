@@ -156,7 +156,7 @@ class PlagiumCLI:
                 if not option:
                     break
 
-            directories.append(self.interface.fileExplorer(text="Select the directories where the files to be processed are located: ", only_directories=True, clear=False)[0])
+            directories.append(self.interface.fileExplorer(text="Select the directories where the files to be processed are located: ", only_directories=True)[0])
 
         return directories
     
@@ -182,7 +182,7 @@ class PlagiumCLI:
         body = {os.path.basename(file): open(file, 'rb') for file in files}
         
         try:
-            response = requests.post(f"{self.core_url}/v1.1/process", files=body)
+            response = requests.post(f"http://{self.core_url}/v1.1/process", files=body)
         except requests.exceptions.InvalidSchema:
             self.interface.print("No connection to the Plaguium Core. Check if the server is running.")
             return
@@ -192,7 +192,9 @@ class PlagiumCLI:
                 file.close()
 
         if response.status_code == 200:
-            self.interface.print(response)
+            report = [f"{data['file1']} - {data['file2']} -> {data['similarity']}" for data in response.json()['report']]
+            self.interface.print("Report:")
+            self.interface._printList(report, enumerate_options=False)
         else:
             self.interface.print('Ocurrió un error al procesar los archivos. Intente nuevamente.')
 
